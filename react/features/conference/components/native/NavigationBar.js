@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { getConferenceName } from '../../../base/conference';
 import { getFeatureFlag, MEETING_NAME_ENABLED } from '../../../base/flags';
@@ -41,6 +42,25 @@ class NavigationBar extends Component<Props> {
      *
      * @inheritdoc
      */
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            meetingName: ''
+        };
+    }
+
+
+    async componentDidMount() {
+        let value = await AsyncStorage.getItem('TITLE');
+        if (value) {
+            value = JSON.parse(value);
+            this.setState({ meetingName: value });
+        }
+    }
+
+
     render() {
         if (!this.props._visible) {
             return null;
@@ -70,7 +90,7 @@ class NavigationBar extends Component<Props> {
                         && <Text
                             numberOfLines = { 1 }
                             style = { styles.roomName }>
-                            { this.props._meetingName }
+                            { !this.state.meetingName ? this.props._meetingName : this.state.meetingName }
                         </Text>
                     }
                     <ConferenceTimer />

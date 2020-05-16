@@ -283,6 +283,11 @@ class WelcomePage extends AbstractWelcomePage {
                                 style = { styles.textInput }
                                 underlineColorAndroid = 'transparent'
                                 value = { this.state.room } />
+                            {!this.state.errorMsg ? null : (
+                                <Text style = { styles.errorText }>
+                                    { this.state.errorMsg }
+                                </Text>
+                            )}
                             {
                                 this._renderHintBox()
                             }

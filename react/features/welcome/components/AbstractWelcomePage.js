@@ -4,6 +4,10 @@ import { generateRoomWithoutSeparator } from 'js-utils/random';
 import { Component } from 'react';
 import type { Dispatch } from 'redux';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+import uuid from 'uuid';
+
 import { createWelcomePageEvent, sendAnalytics } from '../../analytics';
 import { appNavigate } from '../../app';
 import { isCalendarEnabled } from '../../calendar-sync';
@@ -78,7 +82,8 @@ export class AbstractWelcomePage extends Component<Props, *> {
         joining: false,
         room: '',
         roomPlaceholder: '',
-        updateTimeoutId: undefined
+        updateTimeoutId: undefined,
+        errorMsg: ''
     };
 
     /**
@@ -96,6 +101,7 @@ export class AbstractWelcomePage extends Component<Props, *> {
         this._onJoin = this._onJoin.bind(this);
         this._onRoomChange = this._onRoomChange.bind(this);
         this._updateRoomname = this._updateRoomname.bind(this);
+        this.b64DecodeUnicode = this.b64DecodeUnicode.bind(this);
     }
 
     /**
@@ -169,26 +175,73 @@ export class AbstractWelcomePage extends Component<Props, *> {
      * @protected
      * @returns {void}
      */
-    _onJoin() {
+    async _onJoin() {
         const room = this.state.room || this.state.generatedRoomname;
 
-        sendAnalytics(
-            createWelcomePageEvent('clicked', 'joinButton', {
-                isGenerated: !this.state.room,
-                room
-            }));
+        console.log('room url: ', this.state.room);
 
-        if (room) {
-            this.setState({ joining: true });
+        const OLD_MEET_SERVER = "https://devmeet.goodgrid.com";
 
-            // By the time the Promise of appNavigate settles, this component
-            // may have already been unmounted.
-            const onAppNavigateSettled
-                = () => this._mounted && this.setState({ joining: false });
+        /* let lk = this.b64DecodeUnicode(room);
 
-            this.props.dispatch(appNavigate(room))
-                .then(onAppNavigateSettled, onAppNavigateSettled);
+        console.log('lk: ', lk);
+
+        let url_data = lk.split("#");
+
+        console.log('yrl_data: ', url_data); */
+        let meeting_title = '';
+        let room_url = '';
+        let send_body_m = 'meeting_id=' + encodeURIComponent(room);
+        console.log('body: ', send_body_m);
+        await fetch(`${OLD_MEET_SERVER}/service/check_meeting_mobile.php?meeting_id=${room}&device_id=${uuid}&display_name=${uuid}`, {
+        method: 'GET',
+        headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Token': 'mobile_token_hjlgdzZUIgdshzidhksdzxdbjgbkzdkbk'
         }
+        // body: [send_body_m]
+        })
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log('response: ', responseData);
+            if(responseData.status === 'error'){
+
+                //Wrong room name! Please use correct room ID;
+                console.log('Wrong room name! Please use correct room ID');
+                this.setState({ errorMsg: responseData.description });
+            }
+            else {
+                meeting_title = responseData.title;
+                this._updateRoomname(responseData.title);
+                AsyncStorage.setItem('TITLE', JSON.stringify(responseData.title));
+                console.log('room_url: ', room_url, meeting_title);
+                this.setState({ room: responseData.room_url, generatedRoomname: responseData.title });
+                sendAnalytics(
+                    createWelcomePageEvent('clicked', 'joinButton', {
+                        isGenerated: !responseData.room_url,
+                        room_url: responseData.room_url
+                    }));
+        
+                if (responseData.room_url) {
+                    this.setState({ joining: true });
+        
+                    // By the time the Promise of appNavigate settles, this component
+                    // may have already been unmounted.
+                    const onAppNavigateSettled
+                        = () => this._mounted && this.setState({ joining: false });
+        
+                    this.props.dispatch(appNavigate(responseData.room_url))
+                        .then(onAppNavigateSettled, onAppNavigateSettled);
+                }
+            }
+        });
+
+    }
+
+    b64DecodeUnicode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
     }
 
     _onRoomChange: (string) => void;

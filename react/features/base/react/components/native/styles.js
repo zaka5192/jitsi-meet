@@ -57,7 +57,7 @@ const PAGED_LIST_STYLES = {
      * Icon of the page indicator (Android).
      */
     pageIndicatorIcon: {
-        color: ColorPalette.blueHighlight,
+        color: ColorPalette.darkGrey, // ColorPalette.blueHighlight,
         fontSize: 24
     },
 
@@ -65,7 +65,7 @@ const PAGED_LIST_STYLES = {
      * Label of the page indicator (Android).
      */
     pageIndicatorText: {
-        color: ColorPalette.blueHighlight
+        color: ColorPalette.darkGrey // ColorPalette.blueHighlight
     },
 
     /**

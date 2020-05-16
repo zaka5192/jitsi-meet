@@ -32,6 +32,11 @@ type State = {
     disableCallIntegration: boolean,
 
     /**
+     * State variable for the disable call integration switch.
+     */
+    editable: boolean,
+
+    /**
      * State variable for the disable p2p switch.
      */
     disableP2P: boolean,
@@ -148,6 +153,7 @@ class SettingsView extends AbstractSettingsView<Props, State> {
                         <TextInput
                             autoCapitalize = 'none'
                             autoCorrect = { false }
+                            editable = { false }
                             keyboardType = { 'email-address' }
                             onChangeText = { this._onChangeEmail }
                             placeholder = 'email@example.com'

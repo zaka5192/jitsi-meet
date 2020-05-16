@@ -762,7 +762,7 @@
     "welcomepage": {
         "accessibilityLabel": {
             "join": "Tap to join",
-            "roomname": "Enter room name"
+            "roomname": "Enter room ID"
         },
         "appDescription": "Go ahead, video chat with the whole team. In fact, invite everyone you know. {{app}} is a fully encrypted, 100% open source video conferencing solution that you can use all day, every day, for free — with no account needed.",
         "audioVideoSwitch": {
@@ -784,7 +784,7 @@
         "recentListDelete": "Delete",
         "recentListEmpty": "Your recent list is currently empty. Chat with your team and you will find all your recent meetings here.",
         "reducedUIText": "Welcome to {{app}}!",
-        "roomname": "Enter room name",
+        "roomname": "Enter room URL or ID",
         "roomnameHint": "Enter the name or URL of the room you want to join. You may make a name up, just let the people you are meeting know it so that they enter the same name.",
         "sendFeedback": "Send feedback",
         "terms": "Terms",

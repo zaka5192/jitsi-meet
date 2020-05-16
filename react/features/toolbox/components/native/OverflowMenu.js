@@ -9,12 +9,14 @@ import { BottomSheet, hideDialog, isDialogOpen } from '../../../base/dialog';
 import { IconDragHandle } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
-import { SharedDocumentButton } from '../../../etherpad';
+
+// import { SharedDocumentButton } from '../../../etherpad';
 import { InviteButton } from '../../../invite';
 import { AudioRouteButton } from '../../../mobile/audio-mode';
-import { LiveStreamButton, RecordButton } from '../../../recording';
+import { LiveStreamButton/* , RecordButton */ } from '../../../recording';
 import { RoomLockButton } from '../../../room-lock';
-import { ClosedCaptionButton } from '../../../subtitles';
+
+// import { ClosedCaptionButton } from '../../../subtitles';
 import { TileViewButton } from '../../../video-layout';
 
 import HelpButton from '../HelpButton';
@@ -133,11 +135,11 @@ class OverflowMenu extends PureComponent<Props, State> {
                 <Collapsible collapsed = { !showMore }>
                     <ToggleCameraButton { ...buttonProps } />
                     <TileViewButton { ...buttonProps } />
-                    <RecordButton { ...buttonProps } />
+                    {/* <RecordButton { ...buttonProps } /> */}
                     <LiveStreamButton { ...buttonProps } />
                     <RoomLockButton { ...buttonProps } />
-                    <ClosedCaptionButton { ...buttonProps } />
-                    <SharedDocumentButton { ...buttonProps } />
+                    {/* <ClosedCaptionButton { ...buttonProps } />
+                    <SharedDocumentButton { ...buttonProps } /> */}
                     <HelpButton { ...buttonProps } />
                 </Collapsible>
             </BottomSheet>

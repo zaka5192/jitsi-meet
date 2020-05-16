@@ -89,6 +89,12 @@ export default {
         marginBottom: BoxModel.margin
     },
 
+    errorText: {
+        color: ColorPalette.red,
+        fontSize: 18,
+        marginBottom: BoxModel.margin
+    },
+
     /**
      * The welcome screen header style.
      */

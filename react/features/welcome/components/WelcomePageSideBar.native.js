@@ -30,7 +30,7 @@ const PRIVACY_URL = 'https://jitsi.org/meet/privacy';
 /**
  * The URL at which the terms (of service/use) are available to the user.
  */
-const TERMS_URL = 'https://jitsi.org/meet/terms';
+const TERMS_URL = 'https://goodgrid.com/terms'; // 'https://jitsi.org/meet/terms';
 
 type Props = {
 
@@ -105,14 +105,14 @@ class WelcomePageSideBar extends Component<Props> {
                             icon = { IconInfo }
                             label = 'welcomepage.terms'
                             url = { TERMS_URL } />
-                        <SideBarItem
+                        {/* <SideBarItem
                             icon = { IconInfo }
                             label = 'welcomepage.privacy'
                             url = { PRIVACY_URL } />
                         <SideBarItem
                             icon = { IconHelp }
                             label = 'welcomepage.getHelp'
-                            onPress = { this._onOpenHelpPage } />
+                            onPress = { this._onOpenHelpPage } /> */}
                     </ScrollView>
                 </SafeAreaView>
             </SlidingView>

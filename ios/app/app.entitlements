@@ -4,9 +4,14 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:alpha.jitsi.net</string>
-		<string>applinks:beta.meet.jit.si</string>
-		<string>applinks:meet.jit.si</string>
+		<string>applinks:jitsimeet2.goodgrid.com</string>
+		<string>activitycontinuation:jitsimeet2.goodgrid.com</string>
+		<string>applinks:webmeet.goodgrid.com</string>
+		<string>activitycontinuation:webmeet.goodgrid.com</string>
+		<string>activitycontinuation:sb2webmeet.goodgrid.com</string>
+		<string>applinks:sb2webmeet.goodgrid.com</string>
+		<string>activitycontinuation:meet.goodgrid.com</string>
+		<string>applinks:meet.goodgrid.com</string>
 	</array>
 	<key>com.apple.developer.siri</key>
 	<true/>
