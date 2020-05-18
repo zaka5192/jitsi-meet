@@ -180,7 +180,7 @@ export class AbstractWelcomePage extends Component<Props, *> {
 
         console.log('room url: ', this.state.room);
 
-        const OLD_MEET_SERVER = "https://devmeet.goodgrid.com";
+        const OLD_MEET_SERVER = "https://sitmeet.goodgrid.com";
 
         /* let lk = this.b64DecodeUnicode(room);
 
